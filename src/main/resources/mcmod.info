@@ -1,0 +1,20 @@
+[
+{
+  "modid" : "BetterThanBunnies",
+  "name" : "BetterThanBunnies",
+  "version" : "${version}",
+  "url" : "http://ichun.me/",
+  "credits" : "",
+  "authorList": [
+    "iChun"
+  ],
+  "description": "Better Than Bunnies! #BlameQuetzi #BlameRaj",
+  "updateUrl" : "",
+  "parent" : "",
+  "screenshots": [
+  ],
+  "dependencies": [
+    "Forge"
+  ]
+}
+]
