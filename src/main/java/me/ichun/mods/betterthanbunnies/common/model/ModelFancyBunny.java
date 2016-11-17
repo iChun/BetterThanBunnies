@@ -332,22 +332,5 @@ public class ModelFancyBunny extends ModelBase
                 }
             }
         }
-
-        //TODO comment this out and see if it works with the ATs
-        @Override
-        public void compileDisplayList(float scale)
-        {
-            this.displayList = GLAllocation.generateDisplayLists(1);
-            GlStateManager.glNewList(this.displayList, 4864);
-            VertexBuffer vertexbuffer = Tessellator.getInstance().getBuffer();
-
-            for (int i = 0; i < this.cubeList.size(); ++i)
-            {
-                this.cubeList.get(i).render(vertexbuffer, scale);
-            }
-
-            GlStateManager.glEndList();
-            this.compiled = true;
-        }
     }
 }

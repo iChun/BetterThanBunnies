@@ -20,7 +20,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
         version = Reference.VERSION,
         clientSideOnly = true,
         acceptableRemoteVersions = "*",
-        acceptedMinecraftVersions = "[1.9.4,1.10.2]"
+        dependencies = "required-after:forge@[13.19.0.2141,)",
+        acceptedMinecraftVersions = "[1.11,1.12)"
 )
 public class BetterThanBunnies
 {

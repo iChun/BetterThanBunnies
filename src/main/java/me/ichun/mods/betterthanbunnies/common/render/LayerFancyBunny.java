@@ -2,7 +2,6 @@ package me.ichun.mods.betterthanbunnies.common.render;
 
 import me.ichun.mods.betterthanbunnies.common.BetterThanBunnies;
 import me.ichun.mods.betterthanbunnies.common.model.ModelFancyBunny;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderRabbit;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -19,7 +18,7 @@ public class LayerFancyBunny implements LayerRenderer<EntityRabbit>
 
     public ModelFancyBunny modelFancyBunny = new ModelFancyBunny();
     public static final ResourceLocation texFancyBunny = new ResourceLocation("betterthanbunnies","textures/model/fancybunny.png");
-    public static final ResourceLocation texFancyBunnyColorizer = new ResourceLocation("betterthanbunnies","textures/model/fancybunnyColorizer.png");
+    public static final ResourceLocation texFancyBunnyColorizer = new ResourceLocation("betterthanbunnies","textures/model/fancybunnycolorizer.png");
     public Random rand;
 
     public LayerFancyBunny(RenderRabbit renderer)
