@@ -34,26 +34,6 @@ public class LayerFancyBunny implements LayerRenderer<EntityRabbit>
         rand.setSeed(Math.abs(rabbit.getEntityId() * 5642L));
         if(!rabbit.isInvisible() && rand.nextFloat() < (BetterThanBunnies.fancyWeightage / 100F))
         {
-            float[] clr = new float[3];
-            if (rabbit.hasCustomName() && "jeb_".equals(rabbit.getCustomNameTag()))
-            {
-                int i = rabbit.ticksExisted / 25 + rabbit.getEntityId();
-                int j = EnumDyeColor.values().length;
-                int k = i % j;
-                int l = (i + 1) % j;
-                float f = ((float)(rabbit.ticksExisted % 25) + renderTick) / 25.0F;
-                float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
-                float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
-                clr[0] = afloat1[0] * (1.0F - f) + afloat2[0] * f;
-                clr[1] = afloat1[1] * (1.0F - f) + afloat2[1] * f;
-                clr[2] = afloat1[2] * (1.0F - f) + afloat2[2] * f;
-            }
-            else
-            {
-                rand.setSeed(Math.abs(rabbit.getEntityId() * 1234L));
-                clr = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(rand.nextInt(16)));
-            }
-
             boolean renderHat = true;
             boolean renderMonocle = true;
             boolean renderPipe = true;
@@ -101,6 +81,26 @@ public class LayerFancyBunny implements LayerRenderer<EntityRabbit>
 
             if(renderHat || renderMonocle || renderPipe || renderSuit)
             {
+                float[] clr = new float[3];
+                if (rabbit.hasCustomName() && "jeb_".equals(rabbit.getCustomNameTag()))
+                {
+                    int i = rabbit.ticksExisted / 25 + rabbit.getEntityId();
+                    int j = EnumDyeColor.values().length;
+                    int k = i % j;
+                    int l = (i + 1) % j;
+                    float f = ((float)(rabbit.ticksExisted % 25) + renderTick) / 25.0F;
+                    float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
+                    float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
+                    clr[0] = afloat1[0] * (1.0F - f) + afloat2[0] * f;
+                    clr[1] = afloat1[1] * (1.0F - f) + afloat2[1] * f;
+                    clr[2] = afloat1[2] * (1.0F - f) + afloat2[2] * f;
+                }
+                else
+                {
+                    rand.setSeed(Math.abs(rabbit.getEntityId() * 1234L));
+                    clr = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(rand.nextInt(16)));
+                }
+
                 GlStateManager.enableBlend();
                 GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 

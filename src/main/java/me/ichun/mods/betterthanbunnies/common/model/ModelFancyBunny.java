@@ -141,7 +141,7 @@ public class ModelFancyBunny extends ModelBase
         monocleChain4 = new ModelRendererScalable( this, 8, 32, 0.3F );
         monocleChain4.addBox( -0.16666666666F, -0.5F, -0.5F, 7, 1, 1);
         monocleChain4.setRotationPoint( 2.65391F, 16.74345F, -3.391807F );
-        setRotateAngle(monocleChain4, 0.1892902F, -1.775307F, 0.7367755F);
+        setRotateAngle(monocleChain4, 0.1892902F, -1.975307F, 0.2367755F);
 
         bodyTux = new ModelRendererScalable( this, 32, 49, 1.05F );
         bodyTux.addBox( -3F, -2.02380952381F, -9.7619047619F, 6, 5, 10);
@@ -201,8 +201,6 @@ public class ModelFancyBunny extends ModelBase
 
     public void renderHeadParts(boolean renderHat, boolean renderMonocle, boolean renderPipe, boolean color, float f5)
     {
-        setRotateAngle(monocleChain4, 0.1892902F, -1.975307F, 0.2367755F);
-
         if(!color)
         {
             if(renderHat)
@@ -335,6 +333,7 @@ public class ModelFancyBunny extends ModelBase
             }
         }
 
+        //TODO comment this out and see if it works with the ATs
         @Override
         public void compileDisplayList(float scale)
         {
