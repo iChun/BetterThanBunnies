@@ -237,7 +237,7 @@ public class ModelFancyBunny extends ModelBase
         if(!color)
         {
             float f = ageInTicks - (float)rabbit.ticksExisted;
-            float jumpRotation = MathHelper.sin(rabbit.setJumpCompletion(f) * (float)Math.PI);
+            float jumpRotation = MathHelper.sin(rabbit.getJumpCompletion(f) * (float)Math.PI);
 
             frontLegRightTux.rotateAngleX = (jumpRotation * -40.0F - 11.0F) * 0.017453292F;
             frontLegLeftTux.rotateAngleX = (jumpRotation * -40.0F - 11.0F) * 0.017453292F;
