@@ -61,12 +61,12 @@ public class BetterThanBunnies
 
     public class Config
     {
-        public ForgeConfigSpec.IntValue fancyChance;
+        public final ForgeConfigSpec.IntValue fancyChance;
 
-        public ForgeConfigSpec.IntValue hatChance;
-        public ForgeConfigSpec.IntValue monocleChance;
-        public ForgeConfigSpec.IntValue pipeChance;
-        public ForgeConfigSpec.IntValue suitChance;
+        public final ForgeConfigSpec.IntValue hatChance;
+        public final ForgeConfigSpec.IntValue monocleChance;
+        public final ForgeConfigSpec.IntValue pipeChance;
+        public final ForgeConfigSpec.IntValue suitChance;
 
         public Config(ForgeConfigSpec.Builder builder)
         {
