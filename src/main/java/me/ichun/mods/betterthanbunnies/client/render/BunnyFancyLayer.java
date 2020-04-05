@@ -1,8 +1,14 @@
 package me.ichun.mods.betterthanbunnies.client.render;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import me.ichun.mods.betterthanbunnies.client.model.BunnyFancyModel;
 import me.ichun.mods.betterthanbunnies.common.BetterThanBunnies;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.RabbitRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.RabbitModel;
@@ -10,6 +16,7 @@ import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 
@@ -27,7 +34,7 @@ public class BunnyFancyLayer extends LayerRenderer<RabbitEntity, RabbitModel<Rab
     }
 
     @Override
-    public void render(RabbitEntity rabbit, float limbSwing, float limbSwingAmount, float renderTick, float ageInTicks, float netHeadYaw, float headPitch, float f5)
+    public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, RabbitEntity rabbit, float limbSwing, float limbSwingAmount, float renderTick, float ageInTicks, float netHeadYaw, float headPitch)
     {
         boolean iChunRabbit = rabbit.hasCustomName() && "iChun".equals(rabbit.getName().getUnformattedComponentText());
         if(iChunRabbit)
@@ -58,6 +65,8 @@ public class BunnyFancyLayer extends LayerRenderer<RabbitEntity, RabbitModel<Rab
 
             if(renderHat || renderMonocle || renderPipe || renderSuit)
             {
+                modelFancyBunny.setRotationAngles(rabbit, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+
                 float[] clr = new float[3];
                 if (iChunRabbit)
                 {
@@ -78,44 +87,41 @@ public class BunnyFancyLayer extends LayerRenderer<RabbitEntity, RabbitModel<Rab
                     clr = SheepEntity.getDyeRgb(DyeColor.byId(rand.nextInt(16)));
                 }
 
-                GlStateManager.enableBlend();
-                GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+                IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucent(TEX_FANCY_BUNNY));
+
+                int packedOverlay = LivingRenderer.getPackedOverlay(rabbit, 0.0F);
 
                 //push for body renderBody
-                GlStateManager.pushMatrix();
+                matrixStackIn.push();
 
-                float scale = 0.0625F;
                 if(rabbit.isChild()) //child has an additional pushpop for head
                 {
-                    GlStateManager.scalef(0.56666666F, 0.56666666F, 0.56666666F);
-                    GlStateManager.translatef(0.0F, 22.0F * scale, 2.0F * scale);
+                    matrixStackIn.scale(0.56666666F, 0.56666666F, 0.56666666F);
+                    matrixStackIn.translate(0.0D, 1.375D, 0.125D);
                 }
                 else
                 {
-                    GlStateManager.scalef(0.6F, 0.6F, 0.6F);
-                    GlStateManager.translatef(0.0F, 16.0F * scale, 0.0F);
+                    matrixStackIn.scale(0.6F, 0.6F, 0.6F);
+                    matrixStackIn.translate(0.0D, 1.0D, 0.0D);
                 }
 
                 if(renderHat || renderMonocle || renderPipe)
                 {
-                    GlStateManager.pushMatrix();
+                    matrixStackIn.push();
 
-                    GlStateManager.translatef(0F, 1F, -0.0625F);
-                    GlStateManager.rotatef(netHeadYaw, 0.0F, 1.0F, 0.0F);
-                    GlStateManager.rotatef(interpolateValues(rabbit.prevRotationPitch, rabbit.rotationPitch, renderTick), 1.0F, 0.0F, 0.0F);
-                    GlStateManager.translatef(0F, -1F, 0.0625F);
+                    matrixStackIn.translate(0F, 1F, -0.0625F);
+                    matrixStackIn.rotate(Vector3f.YP.rotationDegrees(netHeadYaw));
+                    matrixStackIn.rotate(Vector3f.XP.rotationDegrees(interpolateValues(rabbit.prevRotationPitch, rabbit.rotationPitch, renderTick)));
+                    matrixStackIn.translate(0F, -1F, 0.0625F);
 
-                    this.bindTexture(TEX_FANCY_BUNNY);
-                    GlStateManager.color3f(1F, 1F, 1F);
-                    modelFancyBunny.renderHeadParts(renderHat, renderMonocle, renderPipe, false, 0.0625F);
-
+                    modelFancyBunny.renderHeadParts(renderHat, renderMonocle, renderPipe, false, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
                     if(renderHat)
                     {
-                        this.bindTexture(TEX_FANCY_BUNNY_COLORIZER);
-                        GlStateManager.color3f(clr[0], clr[1], clr[2]);
-                        modelFancyBunny.renderHeadParts(renderHat, renderMonocle, renderPipe, true, 0.0625F);
+                        ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucent(TEX_FANCY_BUNNY_COLORIZER));
+                        modelFancyBunny.renderHeadParts(renderHat, renderMonocle, renderPipe, true, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, clr[0], clr[1], clr[2], 1.0F);
+                        ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucent(TEX_FANCY_BUNNY));
                     }
-                    GlStateManager.popMatrix();
+                    matrixStackIn.pop();
                 }
 
                 if(renderSuit)
@@ -123,23 +129,18 @@ public class BunnyFancyLayer extends LayerRenderer<RabbitEntity, RabbitModel<Rab
                     //Render body
                     if(rabbit.isChild()) //transform/scale for body
                     {
-                        GlStateManager.popMatrix();
-                        GlStateManager.pushMatrix();
-                        GlStateManager.scalef(0.4F, 0.4F, 0.4F);
-                        GlStateManager.translatef(0.0F, 36.0F * scale, 0.0F);
+                        matrixStackIn.pop();
+                        matrixStackIn.push();
+                        matrixStackIn.scale(0.4F, 0.4F, 0.4F);
+                        matrixStackIn.translate(0.0D, 2.25D, 0.0D);
                     }
 
-                    this.bindTexture(TEX_FANCY_BUNNY);
-                    GlStateManager.color3f(1F, 1F, 1F);
-                    modelFancyBunny.renderBody(rabbit, false, ageInTicks, 0.0625F);
+                    modelFancyBunny.renderBody(false, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
 
-                    this.bindTexture(TEX_FANCY_BUNNY_COLORIZER);
-                    GlStateManager.color3f(clr[0], clr[1], clr[2]);
-                    modelFancyBunny.renderBody(rabbit, true, ageInTicks, 0.0625F);
+                    ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucent(TEX_FANCY_BUNNY_COLORIZER));
+                    modelFancyBunny.renderBody(true, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, clr[0], clr[1], clr[2], 1.0F);
                 }
-                GlStateManager.popMatrix();
-
-                GlStateManager.disableBlend();
+                matrixStackIn.pop();
             }
         }
     }
@@ -147,11 +148,5 @@ public class BunnyFancyLayer extends LayerRenderer<RabbitEntity, RabbitModel<Rab
     public static float interpolateValues(float prevVal, float nextVal, float partialTick)
     {
         return prevVal + partialTick * (nextVal - prevVal);
-    }
-
-    @Override
-    public boolean shouldCombineTextures()
-    {
-        return true;
     }
 }

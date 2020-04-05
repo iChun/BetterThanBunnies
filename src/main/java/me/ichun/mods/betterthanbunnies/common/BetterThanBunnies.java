@@ -4,6 +4,7 @@ import me.ichun.mods.betterthanbunnies.client.render.BunnyFancyLayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.RabbitRenderer;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -51,7 +52,7 @@ public class BetterThanBunnies
     @OnlyIn(Dist.CLIENT)
     private void finishLoading(FMLLoadCompleteEvent event)
     {
-        EntityRenderer render = Minecraft.getInstance().getRenderManager().getRenderer(RabbitEntity.class);
+        EntityRenderer<?> render = Minecraft.getInstance().getRenderManager().renderers.get(EntityType.RABBIT);
         if(render instanceof RabbitRenderer)
         {
             RabbitRenderer rabbitRenderer = (RabbitRenderer)render;
