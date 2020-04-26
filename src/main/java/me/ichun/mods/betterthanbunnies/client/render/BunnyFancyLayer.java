@@ -1,7 +1,6 @@
 package me.ichun.mods.betterthanbunnies.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import me.ichun.mods.betterthanbunnies.client.model.BunnyFancyModel;
 import me.ichun.mods.betterthanbunnies.common.BetterThanBunnies;
@@ -16,7 +15,6 @@ import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 
