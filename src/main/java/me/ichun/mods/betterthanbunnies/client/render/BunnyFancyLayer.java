@@ -6,7 +6,6 @@ import me.ichun.mods.betterthanbunnies.client.model.BunnyFancyModel;
 import me.ichun.mods.betterthanbunnies.common.BetterThanBunnies;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.RabbitRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -15,6 +14,7 @@ import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector3f;
 
 import java.util.Random;
 
