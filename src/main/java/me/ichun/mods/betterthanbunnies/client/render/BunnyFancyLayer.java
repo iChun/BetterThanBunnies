@@ -41,7 +41,7 @@ public class BunnyFancyLayer extends LayerRenderer<RabbitEntity, RabbitModel<Rab
         }
         else
         {
-            rand.setSeed(Math.abs((rabbit.hasCustomName() ? rabbit.getName().getUnformattedComponentText().hashCode() : rabbit.getEntityId()) * 5642L));
+            rand.setSeed(Math.abs((rabbit.hasCustomName() ? rabbit.getName().getUnformattedComponentText().hashCode() : rabbit.getUniqueID().hashCode()) * 5642L));
         }
         if(!rabbit.isInvisible() && (iChunRabbit || rand.nextFloat() < (BetterThanBunnies.config.fancyChance.get() / 100F)))
         {
