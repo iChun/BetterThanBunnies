@@ -1,24 +1,25 @@
 package me.ichun.mods.betterthanbunnies.common;
 
 import me.ichun.mods.betterthanbunnies.client.render.BunnyFancyLayer;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.RabbitModel;
-import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RabbitRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fmllegacy.network.FMLNetworkConstants;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkConstants;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,12 +38,12 @@ public class BetterThanBunnies
     {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             setupConfig();
-            MinecraftForge.EVENT_BUS.addListener(this::onClientTick);
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onAddLayers);
         });
         DistExecutor.unsafeRunWhenOn(Dist.DEDICATED_SERVER, () -> () -> LOGGER.log(Level.ERROR, "You are loading " + MOD_NAME + " on a server. " + MOD_NAME + " is a client only mod!"));
 
         //Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
-        ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+        ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
     }
 
     private void setupConfig()
@@ -56,24 +57,10 @@ public class BetterThanBunnies
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, configBuilder.build(), MOD_ID + ".toml");
     }
 
-    private boolean hasLoadingGui = false;
     @OnlyIn(Dist.CLIENT)
-    private void onClientTick(TickEvent.ClientTickEvent event)
+    private void onAddLayers(EntityRenderersEvent.AddLayers event)
     {
-        if(event.phase == TickEvent.Phase.END)
-        {
-            if(Minecraft.getInstance().getOverlay() == null && hasLoadingGui)
-            {
-                injectLayer();
-            }
-            hasLoadingGui = Minecraft.getInstance().getOverlay() != null;
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private void injectLayer()
-    {
-        EntityRenderer<?> render = Minecraft.getInstance().getEntityRenderDispatcher().renderers.get(EntityType.RABBIT);
+        LivingEntityRenderer<Rabbit, ? extends EntityModel<Rabbit>> render = event.getRenderer(EntityType.RABBIT);
         if(render instanceof RabbitRenderer rabbitRenderer)
         {
             boolean flag = false;

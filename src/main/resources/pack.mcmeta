@@ -1,6 +1,6 @@
 {
-   "pack":{
-      "pack_format":6,
-      "description":"Better Than Bunnies"
+   "pack": {
+      "description": "Better Than Bunnies",
+      "pack_format": 8
    }
 }
