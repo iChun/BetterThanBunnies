@@ -34,14 +34,14 @@ public class BunnyFancyLayer extends RenderLayer<Rabbit, RabbitModel<Rabbit>>
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, Rabbit rabbit, float limbSwing, float limbSwingAmount, float renderTick, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        boolean iChunRabbit = rabbit.hasCustomName() && "iChun".equals(rabbit.getName().getContents());
+        boolean iChunRabbit = rabbit.hasCustomName() && "iChun".equals(rabbit.getName().getString());
         if(iChunRabbit)
         {
             rand.setSeed(Math.abs("iChun".hashCode() + (rabbit.getId() * 63268L) * 5642L));
         }
         else
         {
-            rand.setSeed(Math.abs((rabbit.hasCustomName() ? rabbit.getName().getContents().hashCode() : rabbit.getUUID().hashCode()) * 5642L));
+            rand.setSeed(Math.abs((rabbit.hasCustomName() ? rabbit.getName().getString().hashCode() : rabbit.getUUID().hashCode()) * 5642L));
         }
         if(!rabbit.isInvisible() && (iChunRabbit || rand.nextFloat() < (BetterThanBunnies.config.fancyChance.get() / 100F)))
         {
