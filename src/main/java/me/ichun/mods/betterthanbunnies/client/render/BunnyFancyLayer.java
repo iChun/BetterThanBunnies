@@ -2,7 +2,7 @@ package me.ichun.mods.betterthanbunnies.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import me.ichun.mods.betterthanbunnies.client.model.BunnyFancyModel;
 import me.ichun.mods.betterthanbunnies.common.BetterThanBunnies;
 import net.minecraft.client.model.RabbitModel;
@@ -108,8 +108,8 @@ public class BunnyFancyLayer extends RenderLayer<Rabbit, RabbitModel<Rabbit>>
                     matrixStackIn.pushPose();
 
                     matrixStackIn.translate(0F, 1F, -0.0625F);
-                    matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(netHeadYaw));
-                    matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(interpolateValues(rabbit.xRotO, rabbit.getXRot(), renderTick)));
+                    matrixStackIn.mulPose(Axis.YP.rotationDegrees(netHeadYaw));
+                    matrixStackIn.mulPose(Axis.XP.rotationDegrees(interpolateValues(rabbit.xRotO, rabbit.getXRot(), renderTick)));
                     matrixStackIn.translate(0F, -1F, 0.0625F);
 
                     modelFancyBunny.renderHeadParts(renderHat, renderMonocle, renderPipe, false, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
