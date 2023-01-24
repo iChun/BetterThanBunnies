@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "me.ichun.mods.betterthanbunnies.mixin",
   "compatibilityLevel": "JAVA_17",
+  "refmap": "betterthanbunnies.refmap.json",
   "mixins": [
   ],
   "client": [
