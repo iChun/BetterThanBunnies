@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "betterthanbunnies",
+  "version": "${version}",
+
+  "name": "Better Than Bunnies",
+  "description": "Better Than Bunnies! #BlameQuetzi #BlameRaj #BlameRazz",
+  "authors": [
+    "iChun"
+  ],
+  "contact": {
+    "homepage": "https://github.com/iChun/BetterThanBunnies",
+    "issues": "https://github.com/iChun/BetterThanBunnies/issues"
+  },
+
+  "license": "GNU Lesser General Public License v3.0",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.ichun.mods.betterthanbunnies.loader.fabric.LoaderFabricClient"
+    ]
+  },
+
+  "mixins": [
+    "betterthanbunnies.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.11",
+    "fabric-api": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17",
+    "completeconfig": ">=1.4.0 <2.0.0"
+  }
+}
