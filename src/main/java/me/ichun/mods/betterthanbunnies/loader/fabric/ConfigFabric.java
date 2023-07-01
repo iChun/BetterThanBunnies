@@ -12,6 +12,8 @@ public class ConfigFabric extends Config
     public static General GENERAL = null;
     public static Outfit OUTFIT = null;
 
+    public me.lortseam.completeconfig.data.Config configInstance;
+
     public ConfigFabric()
     {
         fancyChance = new ConfigWrapper<>(() -> GENERAL.fancyChance, v -> GENERAL.fancyChance = v);
@@ -40,16 +42,16 @@ public class ConfigFabric extends Config
         @Override
         public String getNameKey()
         {
-            return "config.betterthanbunnies.cat.general.name";
+            return "cat.general.name";
         }
 
         @Override
         public String getDescriptionKey()
         {
-            return "config.betterthanbunnies.cat.general.desc";
+            return "cat.general.desc";
         }
 
-        @ConfigEntry(nameKey = "config.betterthanbunnies.prop.fancyChance.name", descriptionKey = "config.betterthanbunnies.prop.fancyChance.desc", comment = "Chance of bunnies wearing parts of their outfit, in percentage% (0-100)")
+        @ConfigEntry(nameKey = "prop.fancyChance.name", descriptionKey = "prop.fancyChance.desc", comment = "Chance of bunnies wearing parts of their outfit, in percentage% (0-100)")
         @ConfigEntry.BoundedInteger(min = 0, max = 100)
         public int fancyChance = 80;
     }
@@ -72,28 +74,28 @@ public class ConfigFabric extends Config
         @Override
         public String getNameKey()
         {
-            return "config.betterthanbunnies.cat.outfit.name";
+            return "cat.outfit.name";
         }
 
         @Override
         public String getDescriptionKey()
         {
-            return "config.betterthanbunnies.cat.outfit.desc";
+            return "cat.outfit.desc";
         }
 
-        @ConfigEntry(nameKey = "config.betterthanbunnies.prop.hatChance.name", descriptionKey = "config.betterthanbunnies.prop.hatChance.desc", comment = "Chance of bunnies wearing hats in their outfit, in percentage% (0-100)")
+        @ConfigEntry(nameKey = "prop.hatChance.name", descriptionKey = "prop.hatChance.desc", comment = "Chance of bunnies wearing hats in their outfit, in percentage% (0-100)")
         @ConfigEntry.BoundedInteger(min = 0, max = 100)
         public int hatChance = 50;
 
-        @ConfigEntry(nameKey = "config.betterthanbunnies.prop.monocleChance.name", descriptionKey = "config.betterthanbunnies.prop.monocleChance.desc", comment = "Chance of bunnies wearing a monocle in their outfit, in percentage% (0-100)")
+        @ConfigEntry(nameKey = "prop.monocleChance.name", descriptionKey = "prop.monocleChance.desc", comment = "Chance of bunnies wearing a monocle in their outfit, in percentage% (0-100)")
         @ConfigEntry.BoundedInteger(min = 0, max = 100)
         public int monocleChance = 50;
 
-        @ConfigEntry(nameKey = "config.betterthanbunnies.prop.pipeChance.name", descriptionKey = "config.betterthanbunnies.prop.pipeChance.desc", comment = "Chance of bunnies having a pipe in their outfit, in percentage% (0-100)")
+        @ConfigEntry(nameKey = "prop.pipeChance.name", descriptionKey = "prop.pipeChance.desc", comment = "Chance of bunnies having a pipe in their outfit, in percentage% (0-100)")
         @ConfigEntry.BoundedInteger(min = 0, max = 100)
         public int pipeChance = 50;
 
-        @ConfigEntry(nameKey = "config.betterthanbunnies.prop.suitChance.name", descriptionKey = "config.betterthanbunnies.prop.suitChance.desc", comment = "Chance of bunnies wearing a suit in their outfit, in percentage% (0-100)")
+        @ConfigEntry(nameKey = "prop.suitChance.name", descriptionKey = "prop.suitChance.desc", comment = "Chance of bunnies wearing a suit in their outfit, in percentage% (0-100)")
         @ConfigEntry.BoundedInteger(min = 0, max = 100)
         public int suitChance = 50;
     }
