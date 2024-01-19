@@ -12,6 +12,15 @@ public abstract class Config
     public ConfigWrapper<Integer> pipeChance;
     public ConfigWrapper<Integer> suitChance;
 
+    protected static class Reference
+    {
+        public static final String FANCY_CHANCE_COMMENT = "Chance of bunnies wearing parts of their outfit, in percentage% (0-100)";
+        public static final String HAT_CHANCE_COMMENT = "Chance of bunnies wearing hats in their outfit, in percentage% (0-100)";
+        public static final String MONOCLE_CHANCE_COMMENT = "Chance of bunnies wearing a monocle in their outfit, in percentage% (0-100)";
+        public static final String PIPE_CHANCE_COMMENT = "Chance of bunnies having a pipe in their outfit, in percentage% (0-100)";
+        public static final String SUIT_CHANCE_COMMENT = "Chance of bunnies wearing a suit in their outfit, in percentage% (0-100)";
+    }
+
     public static class ConfigWrapper<T>
     {
         public final Supplier<T> getter;

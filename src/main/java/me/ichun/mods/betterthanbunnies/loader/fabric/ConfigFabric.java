@@ -51,7 +51,7 @@ public class ConfigFabric extends Config
             return "cat.general.desc";
         }
 
-        @ConfigEntry(nameKey = "prop.fancyChance.name", descriptionKey = "prop.fancyChance.desc", comment = "Chance of bunnies wearing parts of their outfit, in percentage% (0-100)")
+        @ConfigEntry(nameKey = "prop.fancyChance.name", descriptionKey = "prop.fancyChance.desc", comment = Reference.FANCY_CHANCE_COMMENT)
         @ConfigEntry.BoundedInteger(min = 0, max = 100)
         public int fancyChance = 80;
     }
@@ -83,19 +83,19 @@ public class ConfigFabric extends Config
             return "cat.outfit.desc";
         }
 
-        @ConfigEntry(nameKey = "prop.hatChance.name", descriptionKey = "prop.hatChance.desc", comment = "Chance of bunnies wearing hats in their outfit, in percentage% (0-100)")
+        @ConfigEntry(nameKey = "prop.hatChance.name", descriptionKey = "prop.hatChance.desc", comment = Reference.HAT_CHANCE_COMMENT)
         @ConfigEntry.BoundedInteger(min = 0, max = 100)
         public int hatChance = 50;
 
-        @ConfigEntry(nameKey = "prop.monocleChance.name", descriptionKey = "prop.monocleChance.desc", comment = "Chance of bunnies wearing a monocle in their outfit, in percentage% (0-100)")
+        @ConfigEntry(nameKey = "prop.monocleChance.name", descriptionKey = "prop.monocleChance.desc", comment = Reference.MONOCLE_CHANCE_COMMENT)
         @ConfigEntry.BoundedInteger(min = 0, max = 100)
         public int monocleChance = 50;
 
-        @ConfigEntry(nameKey = "prop.pipeChance.name", descriptionKey = "prop.pipeChance.desc", comment = "Chance of bunnies having a pipe in their outfit, in percentage% (0-100)")
+        @ConfigEntry(nameKey = "prop.pipeChance.name", descriptionKey = "prop.pipeChance.desc", comment = Reference.PIPE_CHANCE_COMMENT)
         @ConfigEntry.BoundedInteger(min = 0, max = 100)
         public int pipeChance = 50;
 
-        @ConfigEntry(nameKey = "prop.suitChance.name", descriptionKey = "prop.suitChance.desc", comment = "Chance of bunnies wearing a suit in their outfit, in percentage% (0-100)")
+        @ConfigEntry(nameKey = "prop.suitChance.name", descriptionKey = "prop.suitChance.desc", comment = Reference.SUIT_CHANCE_COMMENT)
         @ConfigEntry.BoundedInteger(min = 0, max = 100)
         public int suitChance = 50;
     }
