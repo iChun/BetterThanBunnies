@@ -1,60 +1,51 @@
 package me.ichun.mods.betterthanbunnies.common.core;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import me.ichun.mods.betterthanbunnies.common.BetterThanBunnies;
+import me.ichun.mods.ichunutil.common.config.ConfigBase;
+import me.ichun.mods.ichunutil.common.config.annotations.CategoryDivider;
+import me.ichun.mods.ichunutil.common.config.annotations.Prop;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class Config
+public class Config extends ConfigBase
 {
-    public ConfigWrapper<Integer> fancyChance;
+    @Prop(min = 0, max = 100)
+    public int fancyChance = 80;
 
-    public ConfigWrapper<Integer> hatChance;
-    public ConfigWrapper<Integer> monocleChance;
-    public ConfigWrapper<Integer> pipeChance;
-    public ConfigWrapper<Integer> suitChance;
+    @CategoryDivider(name = "outfit")
+    @Prop(min = 0, max = 100)
+    public int hatChance = 50;
 
-    protected static class Reference
+    @Prop(min = 0, max = 100)
+    public int monocleChance = 50;
+
+    @Prop(min = 0, max = 100)
+    public int pipeChance = 50;
+
+    @Prop(min = 0, max = 100)
+    public int suitChance = 50;
+
+    public Config()
     {
-        public static final String FANCY_CHANCE_COMMENT = "Chance of bunnies wearing parts of their outfit, in percentage% (0-100)";
-        public static final String HAT_CHANCE_COMMENT = "Chance of bunnies wearing hats in their outfit, in percentage% (0-100)";
-        public static final String MONOCLE_CHANCE_COMMENT = "Chance of bunnies wearing a monocle in their outfit, in percentage% (0-100)";
-        public static final String PIPE_CHANCE_COMMENT = "Chance of bunnies having a pipe in their outfit, in percentage% (0-100)";
-        public static final String SUIT_CHANCE_COMMENT = "Chance of bunnies wearing a suit in their outfit, in percentage% (0-100)";
+        super(BetterThanBunnies.MOD_ID + ".toml");
     }
 
-    public static class ConfigWrapper<T>
+    @NotNull
+    @Override
+    public String getModId()
     {
-        public final Supplier<T> getter;
-        public final Consumer<T> setter;
-        public final Runnable saver;
+        return BetterThanBunnies.MOD_ID;
+    }
 
-        public ConfigWrapper(Supplier<T> getter, Consumer<T> setter) {
-            this.getter = getter;
-            this.setter = setter;
-            this.saver = null;
-        }
+    @NotNull
+    @Override
+    public String getConfigName()
+    {
+        return BetterThanBunnies.MOD_NAME;
+    }
 
-        public ConfigWrapper(Supplier<T> getter, Consumer<T> setter, Runnable saver) {
-            this.getter = getter;
-            this.setter = setter;
-            this.saver = saver;
-        }
-
-        public T get()
-        {
-            return getter.get();
-        }
-
-        public void set(T obj)
-        {
-            setter.accept(obj);
-        }
-
-        public void save()
-        {
-            if(saver != null)
-            {
-                saver.run();
-            }
-        }
+    @Override
+    public Type getConfigType()
+    {
+        return Type.CLIENT;
     }
 }

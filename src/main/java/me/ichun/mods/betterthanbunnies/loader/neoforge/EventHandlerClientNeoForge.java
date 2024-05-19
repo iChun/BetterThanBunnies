@@ -9,9 +9,9 @@ import net.minecraft.world.entity.animal.Rabbit;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
-public class EventHandlerClientNeoforge extends EventHandlerClient
+public class EventHandlerClientNeoForge extends EventHandlerClient
 {
-    public EventHandlerClientNeoforge(IEventBus modEventBus)
+    public EventHandlerClientNeoForge(IEventBus modEventBus)
     {
         modEventBus.addListener(this::onAddLayers);
     }

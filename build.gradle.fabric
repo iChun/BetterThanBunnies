@@ -51,11 +51,11 @@ dependencies {
 }
 
 //If there's mixins
-loom {
-	mixin {
-		defaultRefmapName = "${project.mod_id}.refmap.json"
-	}
-}
+//loom {
+//	mixin {
+//		defaultRefmapName = "${project.mod_id}.refmap.json"
+//	}
+//}
 
 sourceSets {
 	main {

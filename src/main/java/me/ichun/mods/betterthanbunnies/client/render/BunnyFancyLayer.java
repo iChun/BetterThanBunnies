@@ -43,7 +43,7 @@ public class BunnyFancyLayer extends RenderLayer<Rabbit, RabbitModel<Rabbit>>
         {
             rand.setSeed(Math.abs((rabbit.hasCustomName() ? rabbit.getName().getString().hashCode() : rabbit.getUUID().hashCode()) * 5642L));
         }
-        if(!rabbit.isInvisible() && (iChunRabbit || rand.nextFloat() < (BetterThanBunnies.config.fancyChance.get() / 100F)))
+        if(!rabbit.isInvisible() && (iChunRabbit || rand.nextFloat() < (BetterThanBunnies.config.fancyChance / 100F)))
         {
             boolean renderHat, renderMonocle, renderPipe, renderSuit;
             if(iChunRabbit)
@@ -55,10 +55,10 @@ public class BunnyFancyLayer extends RenderLayer<Rabbit, RabbitModel<Rabbit>>
             }
             else
             {
-                renderHat = rand.nextFloat() < BetterThanBunnies.config.hatChance.get() / 100F;
-                renderMonocle = rand.nextFloat() < BetterThanBunnies.config.monocleChance.get() / 100F;
-                renderPipe = rand.nextFloat() < BetterThanBunnies.config.pipeChance.get() / 100F;
-                renderSuit = rand.nextFloat() < BetterThanBunnies.config.suitChance.get() / 100F;
+                renderHat = rand.nextFloat() < BetterThanBunnies.config.hatChance / 100F;
+                renderMonocle = rand.nextFloat() < BetterThanBunnies.config.monocleChance / 100F;
+                renderPipe = rand.nextFloat() < BetterThanBunnies.config.pipeChance / 100F;
+                renderSuit = rand.nextFloat() < BetterThanBunnies.config.suitChance / 100F;
             }
 
             if(renderHat || renderMonocle || renderPipe || renderSuit)
