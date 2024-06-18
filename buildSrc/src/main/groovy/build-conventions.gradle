@@ -180,7 +180,7 @@ if (hasApi && !isApi && !isIDE) {
 if (isInCompositeBuild || isCompositeBuildParent)
 {
     if (isFabricBased) {
-        def accessWidenerFile = file("${project.rootDir}/../iChunUtil/fabric/src/main/resources/${project.mod_id}.accesswidener")
+        def accessWidenerFile = file("${project.rootDir}/../iChunUtil/fabric/src/main/resources/ichunutil.accesswidener")
         if (accessWidenerFile.exists()) {
             loom.accessWidenerPath = accessWidenerFile
         }
