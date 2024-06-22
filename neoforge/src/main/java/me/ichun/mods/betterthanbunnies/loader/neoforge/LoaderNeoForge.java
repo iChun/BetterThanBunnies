@@ -29,14 +29,9 @@ public class LoaderNeoForge extends BetterThanBunnies
     @OnlyIn(Dist.CLIENT)
     private void initClient(IEventBus modEventBus)
     {
-        setupConfig(modEventBus);
+        //register config
+        config = iChunUtil.d().registerConfig(new Config(), modEventBus);
+
         new EventHandlerClientNeoForge(modEventBus);
     }
-
-    @OnlyIn(Dist.CLIENT)
-    private void setupConfig(IEventBus modEventBus)
-    {
-        BetterThanBunnies.config = iChunUtil.d().registerConfig(new Config(), modEventBus);
-    }
-
 }

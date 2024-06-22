@@ -4,11 +4,11 @@ import me.ichun.mods.betterthanbunnies.common.BetterThanBunnies;
 import me.ichun.mods.betterthanbunnies.common.core.Config;
 import me.ichun.mods.ichunutil.common.iChunUtil;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-
 
 @Mod(BetterThanBunnies.MOD_ID)
 public class LoaderForge extends BetterThanBunnies
@@ -27,6 +27,7 @@ public class LoaderForge extends BetterThanBunnies
         ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, IExtensionPoint.DisplayTest.IGNORE_ALL_VERSION);
     }
 
+    @OnlyIn(Dist.CLIENT)
     private void setupConfig()
     {
         config = iChunUtil.d().registerConfig(new Config());
