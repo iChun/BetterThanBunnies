@@ -23,7 +23,7 @@
       "me.ichun.mods.betterthanbunnies.loader.fabric.LoaderFabricClient"
     ],
     "modmenu": [
-      "me.ichun.mods.betterthanbunnies.loader.fabric.ModMenuIntegration"
+      "me.ichun.mods.ichunutil.loader.fabric.client.ModMenuIntegration"
     ]
   },
 
