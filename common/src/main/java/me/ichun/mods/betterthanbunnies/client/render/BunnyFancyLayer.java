@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RabbitRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
@@ -20,8 +21,8 @@ import java.util.Random;
 
 public class BunnyFancyLayer extends RenderLayer<Rabbit, RabbitModel<Rabbit>>
 {
-    public static final ResourceLocation TEX_FANCY_BUNNY = new ResourceLocation("betterthanbunnies","textures/model/fancybunny.png");
-    public static final ResourceLocation TEX_FANCY_BUNNY_COLORIZER = new ResourceLocation("betterthanbunnies","textures/model/fancybunnycolorizer.png");
+    public static final ResourceLocation TEX_FANCY_BUNNY = ResourceLocation.fromNamespaceAndPath("betterthanbunnies","textures/model/fancybunny.png");
+    public static final ResourceLocation TEX_FANCY_BUNNY_COLORIZER = ResourceLocation.fromNamespaceAndPath("betterthanbunnies","textures/model/fancybunnycolorizer.png");
     public BunnyFancyModel modelFancyBunny = new BunnyFancyModel();
     public Random rand;
 
@@ -65,7 +66,7 @@ public class BunnyFancyLayer extends RenderLayer<Rabbit, RabbitModel<Rabbit>>
             {
                 modelFancyBunny.setupAnim(rabbit, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
-                float[] clr = new float[3];
+                int clr;
                 if (iChunRabbit)
                 {
                     int i = rabbit.tickCount / 25 + rabbit.getId();
@@ -73,16 +74,14 @@ public class BunnyFancyLayer extends RenderLayer<Rabbit, RabbitModel<Rabbit>>
                     int k = i % j;
                     int l = (i + 1) % j;
                     float f = ((float)(rabbit.tickCount % 25) + renderTick) / 25.0F;
-                    float[] afloat1 = Sheep.getColorArray(DyeColor.byId(k));
-                    float[] afloat2 = Sheep.getColorArray(DyeColor.byId(l));
-                    clr[0] = afloat1[0] * (1.0F - f) + afloat2[0] * f;
-                    clr[1] = afloat1[1] * (1.0F - f) + afloat2[1] * f;
-                    clr[2] = afloat1[2] * (1.0F - f) + afloat2[2] * f;
+                    int clr1 = Sheep.getColor(DyeColor.byId(k));
+                    int clr2 = Sheep.getColor(DyeColor.byId(l));
+                    clr = FastColor.ARGB32.lerp(f, clr1, clr2);
                 }
                 else
                 {
                     rand.setSeed(Math.abs(rabbit.getId() * 1234L));
-                    clr = Sheep.getColorArray(DyeColor.byId(rand.nextInt(16)));
+                    clr = Sheep.getColor(DyeColor.byId(rand.nextInt(16)));
                 }
 
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(TEX_FANCY_BUNNY));
@@ -112,11 +111,11 @@ public class BunnyFancyLayer extends RenderLayer<Rabbit, RabbitModel<Rabbit>>
                     matrixStackIn.mulPose(Axis.XP.rotationDegrees(interpolateValues(rabbit.xRotO, rabbit.getXRot(), renderTick)));
                     matrixStackIn.translate(0F, -1F, 0.0625F);
 
-                    modelFancyBunny.renderHeadParts(renderHat, renderMonocle, renderPipe, false, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+                    modelFancyBunny.renderHeadParts(renderHat, renderMonocle, renderPipe, false, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, 0xffffffff);
                     if(renderHat)
                     {
                         ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(TEX_FANCY_BUNNY_COLORIZER));
-                        modelFancyBunny.renderHeadParts(renderHat, renderMonocle, renderPipe, true, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, clr[0], clr[1], clr[2], 1.0F);
+                        modelFancyBunny.renderHeadParts(renderHat, renderMonocle, renderPipe, true, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, clr);
                         ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(TEX_FANCY_BUNNY));
                     }
                     matrixStackIn.popPose();
@@ -133,10 +132,10 @@ public class BunnyFancyLayer extends RenderLayer<Rabbit, RabbitModel<Rabbit>>
                         matrixStackIn.translate(0.0D, 2.25D, 0.0D);
                     }
 
-                    modelFancyBunny.renderBody(false, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, 1.0F, 1.0F, 1.0F, 1.0F);
+                    modelFancyBunny.renderBody(false, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, 0xffffffff);
 
                     ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(TEX_FANCY_BUNNY_COLORIZER));
-                    modelFancyBunny.renderBody(true, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, clr[0], clr[1], clr[2], 1.0F);
+                    modelFancyBunny.renderBody(true, matrixStackIn, ivertexbuilder, packedLightIn, packedOverlay, clr);
                 }
                 matrixStackIn.popPose();
             }
