@@ -35,7 +35,7 @@ public class LoaderNeoForge extends BetterThanBunnies
         //register config
         config = iChunUtil.d().registerConfig(new Config(), modEventBus);
 
-        new EventHandlerClientNeoForge(modEventBus);
+        eventHandlerClient = new EventHandlerClientNeoForge(modEventBus);
 
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (modContainer, screen) -> new WorkspaceConfigs(screen));
     }

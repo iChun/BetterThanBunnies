@@ -17,6 +17,6 @@ public class LoaderFabricClient extends BetterThanBunnies
         config = iChunUtil.d().registerConfig(new Config());
 
         //Create event handler
-        new EventHandlerClientFabric();
+        eventHandlerClient = new EventHandlerClientFabric();
     }
 }
