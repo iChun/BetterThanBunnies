@@ -31,7 +31,7 @@ public class LoaderForge extends BetterThanBunnies
     {
         config = iChunUtil.d().registerConfig(new Config(), context);
 
-        eventHandlerClient = new EventHandlerClientForge();
+        eventHandlerClient = new EventHandlerClientForge(context.getModEventBus());
 
         context.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((mc, screen) -> new WorkspaceConfigs(screen, MOD_ID)));
     }
