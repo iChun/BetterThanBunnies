@@ -8,13 +8,13 @@ import net.minecraft.client.renderer.entity.state.RabbitRenderState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.eventbus.api.IEventBus;
 
 public class EventHandlerClientForge extends EventHandlerClient
 {
-    public EventHandlerClientForge()
+    public EventHandlerClientForge(IEventBus modEventBus)
     {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onAddLayers);
+        modEventBus.addListener(this::onAddLayers);
     }
 
     private void onAddLayers(EntityRenderersEvent.AddLayers event)
