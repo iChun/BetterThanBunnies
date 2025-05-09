@@ -35,7 +35,7 @@ public class LoaderNeoForge extends BetterThanBunnies
     private void initClient(IEventBus modEventBus, ModContainer container)
     {
         //register config
-        config = iChunUtil.d().registerConfig(new Config(), modEventBus);
+        config = iChunUtil.d().registerConfig(new Config(), modEventBus, container);
 
         eventHandlerClient = new EventHandlerClientNeoForge(modEventBus);
 
